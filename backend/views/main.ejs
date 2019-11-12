@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="stylesheets/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
+  <script type="text/javascript">
+
+    window.onload = () =>{
+      document.getElementsByClassName('page_icon')[0].style.backgroundColor="red";
+    }
+
+    $(()=>{
+      $(".main_1").on('mousewheel DOMMouseScroll',(e)=>{
+        var E = e.originalEvent;
+        delta = 0;
+        if (E.detail) {
+            delta = E.detail * -40;
+        }else{
+          delta = E.wheelDelta;
+        };
+        if(delta < 0){
+          $('.main_1').slideUp(1200);
+          $('.main_1_all').slideUp(1200);
+          $('.main_2').css('bottom','0');
+          $('.main_2').slideDown(1200);
+          $('.main_2_all').slideDown(1200);
+          $('.main_3').css('display','none');
+          $('.scroll_box').slideUp(1000);
+          setTimeout(()=>{
+            document.getElementsByClassName('page_icon')[0].style.backgroundColor="";
+            document.getElementsByClassName('page_icon')[1].style.backgroundColor="red";
+          },500);
+        }
+      });
+    });
+
+    $(()=>{
+      $(".main_2").on('mousewheel DOMMouseScroll',(e)=>{
+        var E = e.originalEvent;
+        delta = 0;
+        if (E.detail) {
+            delta = E.detail * -40;
+        }else{
+          delta = E.wheelDelta;
+        };
+        if(delta < 0){
+          $('.main_1').css('display','none');
+          $('.main_2').css('bottom','');
+          $('.main_2').slideUp(1200);
+          $('.main_2_all').slideUp(1200);
+          $('.main_3').css('bottom','0');
+          $('.main_3').slideDown(1200);
+          $('.main_3_all').slideDown(1200);
+          setTimeout(()=>{
+            document.getElementsByClassName('page_icon')[1].style.backgroundColor="";
+            document.getElementsByClassName('page_icon')[2].style.backgroundColor="red";
+          },500);
+        }
+        else{
+          $('.main_3').css('display','none');
+          $('.main_2').css('bottom','0');
+          $('.main_2').slideUp(1200);
+          $('.main_2_all').slideUp(1200);
+          $('.main_1').css('top','');
+          $('.main_1').slideDown(1200);
+          $('.main_1_all').slideDown(1200);
+          $('.scroll_box').slideDown(1200);
+          setTimeout(()=>{
+            document.getElementsByClassName('page_icon')[1].style.backgroundColor="";
+            document.getElementsByClassName('page_icon')[0].style.backgroundColor="red";
+          },500);
+        }
+      });
+    });
+
+    $(()=>{
+      $(".main_3").on('mousewheel DOMMouseScroll',(e)=>{
+        var E = e.originalEvent;
+        delta = 0;
+        if (E.detail) {
+            delta = E.detail * -40;
+        }else{
+          delta = E.wheelDelta;
+        };
+        if(delta > 0){
+          $('.main_1').css('display','none');
+          $('.main_3').css('bottom','0');
+          $('.main_3').slideUp(1200);
+          $('.main_3_all').slideUp(1200);
+          $('.main_2').css('top','');
+          $('.main_2').slideDown(1200);
+          $('.main_2_all').slideDown(1200);
+          setTimeout(()=>{
+            document.getElementsByClassName('page_icon')[2].style.backgroundColor="";
+            document.getElementsByClassName('page_icon')[1].style.backgroundColor="red";
+          },500);
+        }
+      });
+    });
+
+
+  </script>
+  <title>Document</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="title">글 숲에서 노는 아이들</div>
+    <div class="sub_title_1">수업일정</div>
+    <div class="sub_title_2">수업자료</div>
+    <div class="sub_title_3">독후감</div>
+    <div class="sub_title_4">질문게시판</div>
+    <div class="login_box">
+      <div class="login">로그인</div>
+    </div>
+  </header>
+
+  <div class="main_background">
+
+  <div class="main_1">
+    <div class="main_1_all">
+      <div class="header_sub"></div>
+      <div class="index_box">업체 소개</div>
+
+      <div class="sub_all">
+        <div class="sub_left">
+          <div class="title_box">Title Area</div>
+          <div class="content_box">Content Area</div>
+        </div>
+        <div class="sub_right">
+          <div class="img_box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main_2">
+    <div class="main_2_all">
+      <div class="header_sub"></div>
+      <div class="index_box">글 숲 소식</div>
+
+      <div class="sub_all_2">
+        <div class="sub_left_2">
+          <div class="sub_sub"></div>
+        </div>
+        <div class="sub_middle_2">
+          <div class="main_2_box">0</div>
+          <div class="main_2_box">1</div>
+          <div class="main_2_box">2</div>
+          <div class="main_2_box">3</div>
+          <div class="main_2_box">4</div>
+          <div class="main_2_box">5</div>
+          <div class="main_2_box">6</div>
+        </div>
+        <div class="sub_right_2">
+          <div class="sub_sub">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main_3">
+    <div class="main_3_all">
+      <div class="header_sub"></div>
+      <div class="index_box">11월 1주차 수업도서</div>
+
+      <div class="sub_all_3">
+        <div class="sub_left_3">
+          <div class="main_3_img_box"></div>
+          <div class="main_3_content_box"></div>
+        </div>
+        <div class="sub_right_3">
+          <div class="main_3_img_box"></div>
+          <div class="main_3_content_box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="page_box">
+    <div class="page_icon_all">
+      <div class="page_icon"></div>
+      <div class="page_icon"></div>
+      <div class="page_icon"></div>
+    </div>
+  </div>
+  <div class="scroll_box">
+    scroll<br>
+    <i id="scroll_icon" class="fas fa-angle-double-down"></i>
+  </div>
+</body>
+</html>
