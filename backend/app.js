@@ -14,7 +14,7 @@ var sequelize = require('./models').sequelize;
 // express 연결
 var app = express();
 
-// sequelize 실행
+// sequelize 실행 - 강제
 sequelize.sync({ force: true }).then(() => {
   console.log('finish sequelize sync');
 });
