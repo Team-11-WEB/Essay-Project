@@ -4,10 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// 라우터 연결
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// ORM 연결
+var sequelize = require('./models').sequelize;
+
+// express 연결
 var app = express();
+
+// sequelize 실행
+sequelize.sync({ force: true }).then(() => {
+  console.log('finish sequelize sync');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 라우터 경로 설정
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -37,9 +48,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(3000,()=>{
-  console.log('connected!!');
-})
 
 module.exports = app;
