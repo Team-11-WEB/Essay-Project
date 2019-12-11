@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
-    'class',
+    'classstory',
     {
       id: {
         type: DataTypes.BIGINT,

@@ -7,17 +7,25 @@ var logger = require('morgan');
 // 라우터 연결
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
 
 // ORM 연결
 var sequelize = require('./models').sequelize;
+var dataCreator = require('./models/data-creater');
 
 // express 연결
 var app = express();
 
 // sequelize 실행 - 강제
-sequelize.sync({ force: true }).then(() => {
-  console.log('finish sequelize sync');
-});
+sequelize
+  .sync({ force: true })
+  .then(() => {
+    dataCreator.relationInit();
+  })
+  .then(() => {
+    dataCreator.dataInit();
+    console.log('[#confirm] finish sequelize sync');
+  });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 라우터 경로 설정
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false
       },
-      userId: {
-        type: DataTypes.STRING(50),
+      classId: {
+        type: DataTypes.STRING(100),
         allowNull: false,
-        field: 'user_id'
+        field: 'class_id'
       },
       password: {
         type: DataTypes.STRING(255),
@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: {
         type: DataTypes.STRING(255),
-        allowNull: false
+        allowNull: false,
+        field: 'email'
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -37,6 +38,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       timestamps: false
+    },
+    {
+      indexes: [
+        {
+          unique: true,
+          field: ['email']
+        }
+      ]
     }
   );
 };

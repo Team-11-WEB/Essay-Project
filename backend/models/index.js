@@ -20,16 +20,16 @@ if (config.use_env_variable) {
   );
 }
 
-fs.readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-    );
-  })
-  .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
-    db[model.name] = model;
-  });
+// fs.readdirSync(__dirname)
+//   .filter(file => {
+//     return (
+//       file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+//     );
+//   })
+//   .forEach(file => {
+//     const model = sequelize['import'](path.join(__dirname, file));
+//     db[model.name] = model;
+//   });
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -42,7 +42,7 @@ db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize, Sequelize);
 db.Attach = require('./attach')(sequelize, Sequelize);
-db.Class = require('./class')(sequelize, Sequelize);
+db.Classstory = require('./classstory')(sequelize, Sequelize);
 db.Essay = require('./essay')(sequelize, Sequelize);
 db.Qna = require('./qna')(sequelize, Sequelize);
 db.Schedule = require('./schedule')(sequelize, Sequelize);
