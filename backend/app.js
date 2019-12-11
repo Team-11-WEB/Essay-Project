@@ -12,7 +12,7 @@ var essayRouter = require('./routes/essays');
 
 // ORM 연결
 var sequelize = require('./models').sequelize;
-var dataCreator = require('./models/data-creater');
+var dataCreator = require('./models/data-creator');
 
 // express 연결
 var app = express();
