@@ -1,7 +1,8 @@
 let express = require('express');
 let models = require('../models');
-let jwt = require('jsonwebtoken');
-let secretObj = require('../config/jwt');
+let { generateToken } = require('../utils/token');
+let { hash } = require('../utils/encryptPW');
+var { ensureAuthorized } = require('../utils/loginAuth');
 
 let router = express.Router();
 
@@ -13,8 +14,38 @@ const FRONT_HOST =
 
 /**
  *
+ * /auth/register
+ * post:
+ *      summary: 웹페이지 회원가입
+ *      parameters:
+ *          - in: "body"
+ *            name: "body"
+ *            required: true
+ *
+ */
+router.post('/register', async (req, res, next) => {
+  // post 요청값 받아와 저장
+  let curEmail = req.body.email;
+  let curPW = req.body.password;
+  let curClassId = req.body.classId;
+  let curName = req.body.name;
+
+  // users 테이블에 사용자 추가
+  models.User.create({
+    email: curEmail,
+    password: hash(curPW),
+    classId: curClassId,
+    name: curName
+  }).then(result => {
+    console.log('[#register success!]' + result);
+    res.send(200).json(result);
+  });
+});
+
+/**
+ *
  * /auth/login:
- *  get:
+ *  post:
  *      summary: 웹페이지 로그인 요청
  *      parameters:
  *          - in: "body"
@@ -22,18 +53,19 @@ const FRONT_HOST =
  *            description: "로그인 body"
  *            required: true
  */
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
+  // post 요청값 받아와 저장
   const curEmail = req.body.email;
   const curPW = req.body.password;
 
+  // 토큰 생성시 필요한 payload 선언
+  const payload = {
+    email: curEmail
+  };
+
   // 토큰 생성
-  let token = jwt.sign(
-    {
-      //token의 payload --> req.body.email로 값 받아오기
-      email: curEmail
-    },
-    secretObj.secret
-  );
+  let token = await generateToken(payload);
+  console.log('[#token success!]  ' + token);
 
   // 로그인한 이메일 주소에 해당하는 정보를 DB에서 조회
   // 비밀번호 일치시 cookie에 user라는 이름으로 token 값 저장
@@ -42,13 +74,69 @@ router.post('/login', (req, res, next) => {
       email: curEmail
     }
   }).then(user => {
-    if (user.password === curPW) {
-      res.cookie('user', token);
-      res.json({
-        token: token
+    if (user) {
+      if (user.password === hash(curPW)) {
+        res.cookie('access_token', token);
+        res.json({
+          token: token
+        });
+        console.log('[#login sucess!]  ' + token);
+
+        // users 테이블의 token 에 토큰 저장
+        models.User.update(
+          {
+            token
+          },
+          {
+            where: {
+              email: curEmail
+            }
+          }
+        ).then(result => {
+          console.log('[#usersDB update sucess!]  ' + result);
+        });
+      } else {
+        // pw가 일치하지 않을 경우 예외처리
+        res.status(400).json({
+          error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
+        });
+      }
+    } else {
+      // 해당하는 email이 없을경우 예외처리
+      res.status(400).json({
+        error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
       });
-      console.log('login sucess' + token);
     }
+  });
+});
+
+/**
+ * /auth/logout
+ * get:
+ *      summary: 웹페이지 로그아웃
+ *      parameter:
+ *          - in: "body"
+ *            name: "body"
+ *
+ */
+router.get('/logout', ensureAuthorized, (req, res, next) => {
+  // users 테이블에서 token값 null로 바꾸기
+  models.User.update(
+    {
+      token: null
+    },
+    {
+      where: {
+        token: req.token
+      }
+    }
+  ).then(result => {
+    // cookie 값 삭제
+    res.clearCookie('access_token');
+    res.status(200).json({
+      msg: 'logout success'
+    });
+    console.log('[#usersDB remove token sucess!]  ' + result);
   });
 });
 

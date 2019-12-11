@@ -1,8 +1,7 @@
-const path = require('path');
 const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
+const { hash } = require('../utils/encryptPW');
 
 let sequelize;
 if (config.use_env_variable) {
@@ -65,7 +64,7 @@ module.exports = {
       User.create({
         classId: '수요일 중등반',
         email: 'boribap@naver.com',
-        password: 'rlaqhdnjs96',
+        password: hash('rlaqhdnjs96'),
         name: '보리밥'
       }).then(user => {
         user.addEssay(essay);
