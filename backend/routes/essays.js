@@ -11,17 +11,26 @@ const FRONT_HOST =
     : 'http://localhost:3000';
 
 /**
- *
+ * @swagger
  * /essays/{id}:
- *   get:
- *     summary: 독후감 조회
- *     tags: [Essay]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *  get:
+ *    summary: 독후감 조회
+ *    tags:
+ *    - "Essay"
+ *    parameters:
+ *      - in: "path"
+ *        name: "id"
+ *        requried: true
+ *        type: "integer"
+ *        format: "int64"
+ *        description: "조회할 독후감의 id값"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Essay"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 
 router.get('/:id', (req, res, next) => {
@@ -41,15 +50,26 @@ router.get('/:id', (req, res, next) => {
 });
 
 /**
- *
+ * @swagger
  * /essays:
- *   post:
- *     summary: 독후감 등록
- *     tags: [Essay]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         required: true
+ *  post:
+ *    summary: 독후감 등록
+ *    tags:
+ *    - "Essay"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/EssayRegisterForm"
+ *        description: "독후감을 등록하기 위한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Essay"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 
 router.post('/', ensureAuthorized, (req, res, next) => {
@@ -86,7 +106,6 @@ router.post('/', ensureAuthorized, (req, res, next) => {
       title: curTitle,
       content: curContent
     }).then(essay => {
-      console.log('[#essay] : ' + essay);
       user.addEssay(essay);
       res.status(200).json(essay);
     });
@@ -94,17 +113,26 @@ router.post('/', ensureAuthorized, (req, res, next) => {
 });
 
 /**
- *
+ * @swagger
  * /essays:
- *   delete:
- *     summary: 독후감 삭제
- *     tags: [Essay]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *  delete:
+ *    summary: 독후감 삭제
+ *    tags:
+ *    - "Essay"
+ *    parameters:
+ *      - in: "path"
+ *        name: "id"
+ *        requried: true
+ *        type: "integer"
+ *        format: "int64"
+ *        description: "삭제할 독후감의 id값"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Essay"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
  */
 router.delete('/:id', ensureAuthorized, (req, res, next) => {
   // 로그인 필요

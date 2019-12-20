@@ -5,36 +5,56 @@ let { ensureAuthorized } = require('../utils/loginAuth');
 let router = express.Router();
 
 /**
- *
+ * @swagger
  * /schedules:
- *   get:
- *     summary: 수업 일정 목록 조회
- *     tags: [Schedule]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *  get:
+ *    summary: 수업 일정 목록 조회
+ *    tags:
+ *    - "Schedule"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          type: "array"
+ *          items:
+ *            $ref: "#/definitions/Schedule"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.get('/', (req, res, next) => {
   models.Schedule.findAll().then(schedules => {
-    console.log('[#schedules] : ' + schedules);
+    if (!schedules) {
+      res.status(404).json({
+        error: '수업 일정이 없습니다.'
+      });
+      return;
+    }
     res.status(200).json(schedules);
   });
 });
 
 // TO DO: 첨부파일 등록을 어떻게 할 것인가....
 /**
- *
+ * @swagger
  * /schedules:
- *   post:
- *     summary: 수업 일정 등록
- *     tags: [Schedule]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         requried: true
+ *  post:
+ *    summary: 수업 일정 등록
+ *    tags:
+ *    - "Schedule"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        requried: true
+ *        schema:
+ *          $ref: "#/definitions/ScheduleRegisterForm"
+ *        description: "수업 일정 등록하기 위한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Schedule"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
  */
 router.post('/', ensureAuthorized, (req, res, next) => {
   // 로그인 필요
@@ -71,24 +91,32 @@ router.post('/', ensureAuthorized, (req, res, next) => {
       attachTitle: curAttachTitle,
       classDate: curClassDate
     }).then(schedule => {
-      console.log('[#schedule] : ' + schedule);
       res.status(200).json(schedule);
     });
   });
 });
 
 /**
- *
+ * @swagger
  * /schedules:
- *   delete:
- *     summary: 수업 일정 삭제
- *     tags: [Schedule]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *  delete:
+ *    summary: 수업 일정 삭제
+ *    tags:
+ *    - "Schedule"
+ *    parameters:
+ *      - in: "path"
+ *        name: "id"
+ *        requried: true
+ *        type: "integer"
+ *        format: "int64"
+ *        description: "삭제할 수업 일정의 id값"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Schedule"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
  */
 router.delete('/:id', ensureAuthorized, (req, res, next) => {
   // 로그인 필요

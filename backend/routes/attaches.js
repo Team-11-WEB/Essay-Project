@@ -47,39 +47,56 @@ function deleteFile(key) {
 }
 
 /**
- *
+ * @swagger
  * /attaches:
  *   get:
- *     summary: 수업 자료 목록 조회
- *     tags: [Attach]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *    summary: "수업 자료 목록 조회"
+ *    tags:
+ *    - "Attach"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          type: "array"
+ *          items:
+ *            $ref: "#/definitions/Attach"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.get('/', (req, res, next) => {
   models.Attach.findAll().then(attaches => {
-    console.log('[#attaches] : ' + attaches);
-    res.status(200).json(attaches);
+    if (attaches) {
+      res.status(200).json(attaches);
+    } else {
+      res.status(404).json({
+        error: '첨부파일 없음'
+      });
+    }
   });
 });
 
 /**
- *
+ * @swagger
  * /attaches/{id}:
  *   get:
- *     summary: 수업자료 조회
- *     tags: [Attach]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *    summary: "수업 자료 개별 조회"
+ *    tags:
+ *    - "Attach"
+ *    parameters:
+ *      - in: "path"
+ *        name: "id"
+ *        requried: true
+ *        type: "integer"
+ *        format: "int64"
+ *        description: "조회할 첨부파일의 id값"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Attach"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
-
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
 
@@ -97,17 +114,29 @@ router.get('/:id', (req, res, next) => {
 });
 
 /**
- *
+ * @swagger
  * /attaches:
  *   post:
- *     summary: 수업 자료 등록
- *     tags: [Attach]]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         required: true
+ *    summary: "수업 자료 등록"
+ *    tags:
+ *    - "Attach"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/AttachRegisterForm"
+ *        description: "수업 자료 등록하기 위한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Attach"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
+ *      500:
+ *        $ref: "#/components/res/BadRequest"
  */
-
 router.post(
   '/',
   ensureAuthorized,
@@ -143,7 +172,6 @@ router.post(
           url: curUrl,
           key: curKey
         }).then(attach => {
-          console.log('[#attach] : ' + attach);
           res.status(200).json(attach);
         });
       } catch (err) {
@@ -156,17 +184,27 @@ router.post(
 );
 
 /**
- *
+ * @swagger
  * /attaches/deletion:
  *   post:
- *     summary: 수업 자료 삭제
- *     tags: [Attach]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         requried: true
+ *    summary: 수업 자료 삭제
+ *    tags:
+ *    - "Attach"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        requried: true
+ *        schema:
+ *          $ref: "#/definitions/DeleteForm"
+ *        description: "attach.key값 전달"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Attach"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
  */
-// --> 프론트단에서 attach.key를 넘겨준다.
 router.post('/deletion', ensureAuthorized, (req, res, next) => {
   // 로그인 필요
   let curToken = req.token;
@@ -194,7 +232,6 @@ router.post('/deletion', ensureAuthorized, (req, res, next) => {
         key: key
       }
     }).then(attach => {
-      console.log('[#수업 자료 삭제] : ' + key);
       res.status(200).json(attach);
     });
   });

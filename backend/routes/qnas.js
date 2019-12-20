@@ -6,15 +6,26 @@ const mailConfig = require(__dirname + '/../config/mailconfig.json');
 let router = express.Router();
 
 /**
- *
+ * @swagger
  * /qnas:
- *   post:
- *     summary: 질문 등록
- *     tags: [Qna]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         requried: true
+ *  post:
+ *    summary: 질문 등록
+ *    tags:
+ *    - "Qna"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        requried: true
+ *        schema:
+ *          $ref: "#/definitions/QnaRegisterForm"
+ *        description: "질문을 등록하기 위한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Qna"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.post('/', (req, res, next) => {
   // 사용자로부터 받아오는 데이터
@@ -27,20 +38,35 @@ router.post('/', (req, res, next) => {
     content: curContent,
     email: curEmail
   }).then(qna => {
+    if (!qna) {
+      res.status(404).json({
+        error: '질문을 등록하지 못했습니다.'
+      });
+      return;
+    }
     res.status(200).json(qna);
   });
 });
 
 /**
- *
+ * @swagger
  * /qnas/answer:
- *   post:
- *     summary: 질문 답장
- *     tags: [Qna]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         requried: true
+ *  post:
+ *    summary: 질문 답장
+ *    tags:
+ *    - "Qna"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        requried: true
+ *        schema:
+ *          $ref: "#/definitions/AnswerForm"
+ *        description: "질문에 답장하기 위한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.post('/answer', (req, res, next) => {
   let curEmail = req.body.email;
@@ -65,9 +91,10 @@ router.post('/answer', (req, res, next) => {
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.log(err);
-      res.status(404).json(err);
+      res.status(404).json({
+        error: '질문에 답장하지 못했습니다.'
+      });
     } else {
-      console.log('[#Email sent!] : ' + info.response);
       res.status(200).json(info.response);
     }
   });

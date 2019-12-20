@@ -13,15 +13,24 @@ const FRONT_HOST =
     : 'http://localhost:3000';
 
 /**
- *
- * /auth/register
- * post:
- *      summary: 웹페이지 회원가입
- *      parameters:
- *          - in: "body"
- *            name: "body"
- *            required: true
- *
+ * @swagger
+ * /auth/register:
+ *  post:
+ *    summary: "웹페이지 회원가입"
+ *    tags:
+ *    - "Auth"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/AuthRegisterForm"
+ *        description: "회원가입에 필요한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.post('/register', async (req, res, next) => {
   // post 요청값 받아와 저장
@@ -37,21 +46,35 @@ router.post('/register', async (req, res, next) => {
     classId: curClassId,
     name: curName
   }).then(result => {
-    console.log('[#register success!]' + result);
-    res.send(200).json(result);
+    if (!result) {
+      res.status(404).json({
+        error: '회원 등록 실패'
+      });
+      return;
+    }
+    res.status(200).json(result);
   });
 });
 
 /**
- *
+ * @swagger
  * /auth/login:
  *  post:
- *      summary: 웹페이지 로그인 요청
- *      parameters:
- *          - in: "body"
- *            name: "body"
- *            description: "로그인 body"
- *            required: true
+ *    summary: "웹페이지 로그인 요청"
+ *    tags:
+ *    - "Auth"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        description: "로그인에 필요한 정보"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/AuthLoginForm"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.post('/login', async (req, res, next) => {
   // post 요청값 받아와 저장
@@ -65,7 +88,6 @@ router.post('/login', async (req, res, next) => {
 
   // 토큰 생성
   let token = await generateToken(payload);
-  console.log('[#token success!]  ' + token);
 
   // 로그인한 이메일 주소에 해당하는 정보를 DB에서 조회
   // 비밀번호 일치시 cookie에 user라는 이름으로 token 값 저장
@@ -80,7 +102,6 @@ router.post('/login', async (req, res, next) => {
         res.json({
           token: token
         });
-        console.log('[#login sucess!]  ' + token);
 
         // users 테이블의 token 에 토큰 저장
         models.User.update(
@@ -93,17 +114,17 @@ router.post('/login', async (req, res, next) => {
             }
           }
         ).then(result => {
-          console.log('[#usersDB update sucess!]  ' + result);
+          res.status(200).json(result);
         });
       } else {
         // pw가 일치하지 않을 경우 예외처리
-        res.status(400).json({
+        res.status(404).json({
           error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
         });
       }
     } else {
       // 해당하는 email이 없을경우 예외처리
-      res.status(400).json({
+      res.status(404).json({
         error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
       });
     }
@@ -111,13 +132,17 @@ router.post('/login', async (req, res, next) => {
 });
 
 /**
- * /auth/logout
- * get:
- *      summary: 웹페이지 로그아웃
- *      parameter:
- *          - in: "body"
- *            name: "body"
- *
+ * @swagger
+ * /auth/logout:
+ *  get:
+ *    summary: "웹페이지 로그아웃"
+ *    tags:
+ *    - "Auth"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.get('/logout', ensureAuthorized, (req, res, next) => {
   // users 테이블에서 token값 null로 바꾸기
@@ -131,12 +156,15 @@ router.get('/logout', ensureAuthorized, (req, res, next) => {
       }
     }
   ).then(result => {
+    if (!result) {
+      res.status(404).json({
+        error: '로그아웃 실패'
+      });
+      return;
+    }
     // cookie 값 삭제
     res.clearCookie('access_token');
-    res.status(200).json({
-      msg: 'logout success'
-    });
-    console.log('[#usersDB remove token sucess!]  ' + result);
+    res.status(200).json(result);
   });
 });
 

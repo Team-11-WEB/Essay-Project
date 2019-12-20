@@ -46,35 +46,57 @@ function deleteFile(key) {
 }
 
 /**
- *
+ * @swagger
  * /classstories:
  *   get:
- *     summary: 수업 진행한 내용 목록 조회
- *     tags: [Classstory]
- *     parameters:
- *       - in: "path"
- *         name: "id"
- *         requried: true
- *         type: "integer"
- *         format: "int64"
+ *    summary: "수업 진행한 내용 목록 조회"
+ *    tags:
+ *    - "Classstory"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          type: "array"
+ *          items:
+ *            $ref: "#/definitions/Classstory"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.get('/', (req, res, next) => {
   models.Classstory.findAll().then(classstories => {
-    console.log('[#classstories] : ' + classstories);
+    if (!classstories) {
+      res.status(404).json({
+        error: '수업 진행한 내용이 없습니다.'
+      });
+      return;
+    }
     res.status(200).json(classstories);
   });
 });
 
 /**
- *
+ * @swagger
  * /classstories:
  *   post:
- *     summary: 수업 진행한 내용 등록
- *     tags: [Classstory]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         requried: true
+ *    summary: "수업 진행한 내용 등록"
+ *    tags:
+ *    - "Classstory"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/ClassstoryRegisterForm"
+ *        description: "수업 진행한 내용 등록하기 위한 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Classstory"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
+ *      500:
+ *        $ref: "#/components/res/BadRequest"
  */
 router.post(
   '/',
@@ -114,7 +136,6 @@ router.post(
           classImg: curClassImg,
           key: curKey
         }).then(classstory => {
-          console.log('[#classstory] : ' + classstory);
           res.status(200).json(classstory);
         });
       } catch (err) {
@@ -127,17 +148,27 @@ router.post(
 );
 
 /**
- *
+ * @swagger
  * /classstories/deletion:
  *   post:
- *     summary: 수업 진행한 내용 삭제
- *     tags: [Classstory]
- *     parameters:
- *       - in: "body"
- *         name: "body"
- *         requried: true
+ *    summary: 수업 진행한 내용 삭제
+ *    tags:
+ *    - "Classstory"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        requried: true
+ *        schema:
+ *          $ref: "#/definitions/DeleteForm"
+ *        description: "classstory.key값 전달"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Classstory"
+ *      403:
+ *        $ref: "#/components/res/Forbidden"
  */
-// --> 프론트단에서 classstory.key를 넘김.
 router.post('/deletion', ensureAuthorized, (req, res, next) => {
   // 로그인 필요
   let curToken = req.token;
@@ -165,7 +196,6 @@ router.post('/deletion', ensureAuthorized, (req, res, next) => {
         key: key
       }
     }).then(classstory => {
-      console.log('[#수업 진행한 내용 삭제] : ' + key);
       res.status(200).json(classstory);
     });
   });
