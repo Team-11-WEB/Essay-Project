@@ -14,13 +14,13 @@ module.exports = (sequlize, DataTypes) => {
       },
       content: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
       },
-      path: {
+      url: {
         type: DataTypes.STRING(255),
         allowNull: false
       },
-      filename: {
+      key: {
         type: DataTypes.STRING(255),
         allowNull: false
       },

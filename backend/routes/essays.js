@@ -26,7 +26,6 @@ const FRONT_HOST =
 
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  const result = {};
 
   models.Essay.findByPk(id).then(essay => {
     // 해당 id의 독후감이 없을 경우
@@ -42,7 +41,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 /**
- * @swagger
+ *
  * /essays:
  *   post:
  *     summary: 독후감 등록
@@ -74,6 +73,7 @@ router.post('/', ensureAuthorized, (req, res, next) => {
       res.status(404).json({
         error: '해당 사용자가 없습니다.'
       });
+      return;
     }
 
     // 토큰을 가진 user가 있을 경우

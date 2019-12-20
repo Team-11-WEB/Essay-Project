@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       location: {
         type: DataTypes.TEXT
       },
+      attachTitle: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+        field: 'attach_title'
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

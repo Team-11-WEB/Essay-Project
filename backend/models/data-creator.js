@@ -49,11 +49,15 @@ module.exports = {
         field: 'user_id'
       }
     });
-
-    Schedule.belongsToMany(Attach, { through: 'schedule_attach' });
-    Attach.belongsToMany(Schedule, { through: 'schedule_attach' });
   },
   dataInit: () => {
+    User.create({
+      classId: 'admin',
+      password: hash('admin'),
+      email: 'bsww201@naver.com',
+      name: 'admin'
+    });
+
     Essay.create({
       bookName: '역사의 역사',
       bookAuthor: '유시민',

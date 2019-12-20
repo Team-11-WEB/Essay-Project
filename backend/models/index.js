@@ -60,7 +60,4 @@ db.Essay.belongsTo(db.User, {
   }
 });
 
-db.Schedule.belongsToMany(db.Attach, { through: 'schedule_attach' });
-db.Attach.belongsToMany(db.Schedule, { through: 'schedule_attach' });
-
 module.exports = db;

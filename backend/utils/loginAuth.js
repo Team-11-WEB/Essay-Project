@@ -3,10 +3,8 @@ function ensureAuthorized(req, res, next) {
   var bearerHeader = req.cookies.access_token,
     bearer;
   var bearerToken;
-  console.log('[#header] : ' + bearerHeader);
   if (typeof bearerHeader !== 'undefined') {
     bearer = bearerHeader.split(' ');
-    console.log('[#bearer] : ' + bearer);
     bearerToken = bearer;
     console.log('[#Token] : ' + bearerToken);
     req.token = bearerToken;
