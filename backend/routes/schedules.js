@@ -1,7 +1,6 @@
 let express = require('express');
-let path = require('path');
 let models = require('../models');
-let { ensureAuthorizes } = require('../utils/loginAuth');
+let { ensureAuthorized } = require('../utils/loginAuth');
 
 let router = express.Router();
 
@@ -25,6 +24,7 @@ router.get('/', (req, res, next) => {
   });
 });
 
+// TO DO: 첨부파일 등록을 어떻게 할 것인가....
 /**
  *
  * /schedules:
@@ -36,18 +36,90 @@ router.get('/', (req, res, next) => {
  *         name: "body"
  *         requried: true
  */
-router.post('/', (req, res, next) => {
-  // 로그인 필요 --> ensureAuthorized
-  // let curToken = req.token;
+router.post('/', ensureAuthorized, (req, res, next) => {
+  // 로그인 필요
+  let curToken = req.token;
 
   // 사용자로부터 받아오는 데이터
   let curTitle = req.body.title;
   let curContent = req.body.content;
   let curLocation = req.body.location;
-  let curClassData = req.body.classData;
+  let curClassId = req.body.classId;
+  let curClassDate = req.body.classDate;
   let curAttachTitle = req.body.attachTitle;
+
+  // 로그인 확인으로 부터 얻은 토큰으로 관리자인지 확인
+  models.User.findOne({
+    where: {
+      token: curToken
+    }
+  }).then(user => {
+    // 관리자가 아닐 경우
+    if (user.name != 'admin') {
+      res.status(403).json({
+        error: '수업 일정을 업로드할 권한이 없습니다.'
+      });
+      return;
+    }
+
+    // 관리자일 경우
+    models.Schedule.create({
+      title: curTitle,
+      content: curContent,
+      location: curLocation,
+      classId: curClassId,
+      attachTitle: curAttachTitle,
+      classDate: curClassDate
+    }).then(schedule => {
+      console.log('[#schedule] : ' + schedule);
+      res.status(200).json(schedule);
+    });
+  });
 });
 
-// To do: 수업 일정 삭제
+/**
+ *
+ * /schedules:
+ *   delete:
+ *     summary: 수업 일정 삭제
+ *     tags: [Schedule]
+ *     parameters:
+ *       - in: "path"
+ *         name: "id"
+ *         requried: true
+ *         type: "integer"
+ *         format: "int64"
+ */
+router.delete('/:id', ensureAuthorized, (req, res, next) => {
+  // 로그인 필요
+  let curToken = req.token;
+
+  // 사용자로부터 받은 삭제할 일정의 id
+  let id = req.params.id;
+
+  // 로그인 확인으로 부터 얻은 토큰으로 관리자인지 확인
+  models.User.findOne({
+    where: {
+      token: curToken
+    }
+  }).then(user => {
+    //관리자가 아닐 경우
+    if (user.name != 'admin') {
+      res.status(403).json({
+        error: '수업 일정을 삭제할 권한이 없습니다.'
+      });
+      return;
+    }
+
+    // 관리자일 경우
+    models.Schedule.destroy({
+      where: {
+        id: id
+      }
+    }).then(schedule => {
+      res.status(200).json(schedule);
+    });
+  });
+});
 
 module.exports = router;

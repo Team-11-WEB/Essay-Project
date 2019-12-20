@@ -16,10 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true
       },
-      classData: {
+      classId: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        field: 'class_id'
+      },
+      classDate: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'class_data'
+        field: 'class_date'
       },
       location: {
         type: DataTypes.TEXT

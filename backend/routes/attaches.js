@@ -155,13 +155,49 @@ router.post(
   }
 );
 
-// To do: 수업 자료 삭제 --> extension 프론트단에서 붙여줄수있는지
-router.post('/deletion', ensureAuthorized, async (req, res, next) => {
-  const key = req.body.key;
-  await deleteFile(key);
+/**
+ *
+ * /attaches/deletion:
+ *   post:
+ *     summary: 수업 자료 삭제
+ *     tags: [Attach]
+ *     parameters:
+ *       - in: "body"
+ *         name: "body"
+ *         requried: true
+ */
+// --> 프론트단에서 attach.key를 넘겨준다.
+router.post('/deletion', ensureAuthorized, (req, res, next) => {
+  // 로그인 필요
+  let curToken = req.token;
 
-  console.log('[#수업 자료 삭제] : ' + key);
-  res.status(200).json(key);
+  // 사용자로부터 받은 삭제할 자료의 id
+  let key = req.body.key;
+
+  models.User.findOne({
+    where: {
+      token: curToken
+    }
+  }).then(async user => {
+    //관리자가 아닐 경우
+    if (user.name != 'admin') {
+      res.status(403).json({
+        error: '수업 자료를 삭제할 권한이 없습니다.'
+      });
+      return;
+    }
+
+    // 관리자일 경우
+    await deleteFile(key);
+    models.Attach.destroy({
+      where: {
+        key: key
+      }
+    }).then(attach => {
+      console.log('[#수업 자료 삭제] : ' + key);
+      res.status(200).json(attach);
+    });
+  });
 });
 
 module.exports = router;

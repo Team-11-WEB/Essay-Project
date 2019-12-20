@@ -93,4 +93,51 @@ router.post('/', ensureAuthorized, (req, res, next) => {
   });
 });
 
+/**
+ *
+ * /essays:
+ *   delete:
+ *     summary: 독후감 삭제
+ *     tags: [Essay]
+ *     parameters:
+ *       - in: "path"
+ *         name: "id"
+ *         requried: true
+ *         type: "integer"
+ *         format: "int64"
+ */
+router.delete('/:id', ensureAuthorized, (req, res, next) => {
+  // 로그인 필요
+  let curToken = req.token;
+
+  // 사용자로부터 받은 삭제할 독후감의 id
+  let id = req.params.id;
+
+  // 로그인 확인으로 부터 얻은 토큰으로 글쓴이인지 확인
+  models.User.findOne({
+    where: {
+      token: curToken
+    }
+  }).then(user => {
+    models.Essay.findByPk(id).then(essay => {
+      // 글쓴이가 아닐 경우
+      if (user.id != essay.userId) {
+        res.status(403).json({
+          error: '독후감을 삭제할 권한이 없습니다.'
+        });
+        return;
+      }
+
+      // 글쓴이일 경우
+      models.Essay.destroy({
+        where: {
+          id: id
+        }
+      }).then(essay => {
+        res.status(200).json(essay);
+      });
+    });
+  });
+});
+
 module.exports = router;
