@@ -12,6 +12,7 @@ var essayRouter = require('./routes/essays');
 var attachRouter = require('./routes/attaches');
 var scheduleRouter = require('./routes/schedules');
 var qnaRouter = require('./routes/qnas');
+var classstoryRouter = require('./routes/classstories');
 
 // ORM 연결
 var sequelize = require('./models').sequelize;
@@ -49,6 +50,7 @@ app.use('/essays', essayRouter);
 app.use('/attaches', attachRouter);
 app.use('/schedules', scheduleRouter);
 app.use('/qnas', qnaRouter);
+app.use('/classstories', classstoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

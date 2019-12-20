@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false
       },
-      classData: {
+      classDate: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'class_data'
+        field: 'class_date'
       },
       title: {
         type: DataTypes.STRING(200),
@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       classImg: {
         type: DataTypes.STRING(225),
         field: 'class_img'
+      },
+      key: {
+        type: DataTypes.STRING(255),
+        allowNull: false
       },
       createdAt: {
         type: DataTypes.DATE,
