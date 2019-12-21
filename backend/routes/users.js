@@ -11,6 +11,33 @@ router.get('/', function(req, res, next) {
 
 /**
  * @swagger
+ * /user:
+ *  get:
+ *    summary: "회원 목록 조회"
+ *    tags:
+ *    - "User"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/User"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
+ */
+router.get('/', (req, res, next) => {
+  models.User.findAll().then(users => {
+    if (!users) {
+      res.status(404).json({
+        error: '회원이 없습니다.'
+      });
+      return;
+    }
+    res.status(200).json(users);
+  });
+});
+
+/**
+ * @swagger
  * /users/me:
  *  get:
  *    summary: "토큰 검사 후 계정 정보 반환"

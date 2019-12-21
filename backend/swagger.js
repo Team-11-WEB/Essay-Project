@@ -81,6 +81,7 @@ module.exports = {
           bookAuthor: { type: 'string' },
           essayAuthor: { type: 'string' },
           title: { type: 'string' },
+          url: { type: 'string' },
           content: { type: 'string' },
           createdAt: { type: 'string', format: 'date' }
         },
@@ -117,6 +118,16 @@ module.exports = {
           token: { type: 'string' },
           name: { type: 'string' },
           email: { type: 'string' },
+          createdAt: { type: 'string', format: 'date' }
+        },
+        type: 'object'
+      },
+      NewCrew: {
+        properties: {
+          id: { type: 'integer', format: 'int64' },
+          phoneNum: { type: 'string' },
+          age: { type: 'integer', format: 'int64' },
+          content: { type: 'string' },
           createdAt: { type: 'string', format: 'date' }
         },
         type: 'object'
@@ -160,7 +171,8 @@ module.exports = {
           bookName: { type: 'string' },
           bookAuthor: { type: 'string' },
           title: { type: 'string' },
-          content: { type: 'string' }
+          content: { type: 'string' },
+          url: { type: 'string' }
         }
       },
       QnaRegisterForm: {
@@ -185,6 +197,13 @@ module.exports = {
           classId: { type: 'string' },
           classDate: { type: 'string', format: 'date' },
           attachTitle: { type: 'string' }
+        }
+      },
+      NewCrewRegisterForm: {
+        properties: {
+          phoneNum: { type: 'string' },
+          age: { type: 'integer', format: 'int64' },
+          content: { type: 'string' }
         }
       }
     }

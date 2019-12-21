@@ -4,11 +4,34 @@ var { ensureAuthorized } = require('../utils/loginAuth');
 
 let router = express.Router();
 
-const NODE_ENV = process.env.NODE_ENV;
-const FRONT_HOST =
-  NODE_ENV === 'production'
-    ? 'https://semibasement.com'
-    : 'http://localhost:3000';
+/**
+ * @swagger
+ * /schedules:
+ *  get:
+ *    summary: 독후감 목록 조회
+ *    tags:
+ *    - "Essay"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          type: "array"
+ *          items:
+ *            $ref: "#/definitions/Essay"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
+ */
+router.get('/', (req, res, next) => {
+  models.Essay.findAll().then(essays => {
+    if (!essays) {
+      res.status(404).json({
+        error: '독후감이 없습니다.'
+      });
+      return;
+    }
+    res.status(200).json(essays);
+  });
+});
 
 /**
  * @swagger
@@ -81,6 +104,7 @@ router.post('/', ensureAuthorized, (req, res, next) => {
   let curBookAuthor = req.body.bookAuthor;
   let curTitle = req.body.title;
   let curContent = req.body.content;
+  let curUrl = req.body.url;
 
   // 로그인 확인으로 부터 얻은 토큰으로 해당 user 찾기
   models.User.findOne({
@@ -104,7 +128,8 @@ router.post('/', ensureAuthorized, (req, res, next) => {
       bookAuthor: curBookAuthor,
       essayAuthor: user.name,
       title: curTitle,
-      content: curContent
+      content: curContent,
+      url: curUrl
     }).then(essay => {
       user.addEssay(essay);
       res.status(200).json(essay);

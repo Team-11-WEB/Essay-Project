@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
-    'essay',
+    'newcrew',
     {
       id: {
         type: DataTypes.BIGINT,
@@ -8,24 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false
       },
-      bookName: {
-        type: DataTypes.STRING(255),
+      phoneNum: {
+        type: DataTypes.STRING(30),
         allowNull: false,
-        field: 'book_name'
+        field: 'phone_num'
       },
-      bookAuthor: {
-        type: DataTypes.STRING(255),
-        field: 'book_author'
-      },
-      essayAuthor: {
-        type: DataTypes.STRING(255),
-        field: 'essay_author'
-      },
-      url: {
-        type: DataTypes.STRING(255)
-      },
-      title: {
-        type: DataTypes.STRING(200)
+      age: {
+        type: DataTypes.INT,
+        allowNull: false
       },
       content: {
         type: DataTypes.TEXT
@@ -34,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
-        field: 'create_at'
+        field: 'created_at'
       }
     },
     {

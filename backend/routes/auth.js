@@ -96,38 +96,41 @@ router.post('/login', async (req, res, next) => {
       email: curEmail
     }
   }).then(user => {
-    if (user) {
-      if (user.password === hash(curPW)) {
-        res.cookie('access_token', token);
-        res.json({
-          token: token
-        });
-
-        // users 테이블의 token 에 토큰 저장
-        models.User.update(
-          {
-            token
-          },
-          {
-            where: {
-              email: curEmail
-            }
-          }
-        ).then(result => {
-          res.status(200).json(result);
-        });
-      } else {
-        // pw가 일치하지 않을 경우 예외처리
-        res.status(404).json({
-          error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
-        });
-      }
-    } else {
+    if (!user) {
       // 해당하는 email이 없을경우 예외처리
       res.status(404).json({
         error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
       });
+      return;
     }
+
+    if (user.password != hash(curPW)) {
+      // pw가 일치하지 않을 경우 예외처리
+      res.status(404).json({
+        error: '잘못된 id, pw입니다. 확인 후 다시 시도해주세요.'
+      });
+      return;
+    }
+
+    // id, pw가 일치할 경우
+    res.cookie('access_token', token);
+    res.json({
+      token: token
+    });
+
+    // users 테이블의 token 에 토큰 저장
+    models.User.update(
+      {
+        token
+      },
+      {
+        where: {
+          email: curEmail
+        }
+      }
+    ).then(result => {
+      console.log('[#로그인 완료] : ' + result);
+    });
   });
 });
 

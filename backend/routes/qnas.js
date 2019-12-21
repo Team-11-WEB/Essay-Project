@@ -8,6 +8,35 @@ let router = express.Router();
 /**
  * @swagger
  * /qnas:
+ *  get:
+ *    summary: 질문 목록 조회
+ *    tags:
+ *     - "Qna"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          type: "array"
+ *          items:
+ *            $ref: "#/definitions/Qna"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
+ */
+router.get('/', (req, res, next) => {
+  models.Qna.findAll().then(qnas => {
+    if (!qnas) {
+      res.status(404).json({
+        error: '질문이 없습니다.'
+      });
+      return;
+    }
+    res.status(200).json(qnas);
+  });
+});
+
+/**
+ * @swagger
+ * /qnas:
  *  post:
  *    summary: 질문 등록
  *    tags:
