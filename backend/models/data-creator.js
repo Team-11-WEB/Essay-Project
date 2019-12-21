@@ -21,6 +21,7 @@ const Qna = require('./qna')(sequelize, Sequelize);
 const Essay = require('./essay')(sequelize, Sequelize);
 const Classstory = require('./classstory')(sequelize, Sequelize);
 const Attach = require('./attach')(sequelize, Sequelize);
+const New = require('./new')(sequelize, Sequelize);
 
 module.exports = {
   relationInit: () => {

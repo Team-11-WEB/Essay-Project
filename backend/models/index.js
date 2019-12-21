@@ -33,6 +33,7 @@ db.Classstory = require('./classstory')(sequelize, Sequelize);
 db.Essay = require('./essay')(sequelize, Sequelize);
 db.Qna = require('./qna')(sequelize, Sequelize);
 db.Schedule = require('./schedule')(sequelize, Sequelize);
+db.New = require('./new')(sequelize, Sequelize);
 
 db.User.hasMany(db.Qna, {
   foreignKey: {

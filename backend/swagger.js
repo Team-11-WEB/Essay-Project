@@ -122,7 +122,7 @@ module.exports = {
         },
         type: 'object'
       },
-      NewCrew: {
+      New: {
         properties: {
           id: { type: 'integer', format: 'int64' },
           phoneNum: { type: 'string' },
@@ -199,7 +199,7 @@ module.exports = {
           attachTitle: { type: 'string' }
         }
       },
-      NewCrewRegisterForm: {
+      NewRegisterForm: {
         properties: {
           phoneNum: { type: 'string' },
           age: { type: 'integer', format: 'int64' },

@@ -94,7 +94,6 @@ router.get('/:id', (req, res, next) => {
  *      404:
  *        $ref: "#/components/res/BadRequest"
  */
-
 router.post('/', ensureAuthorized, (req, res, next) => {
   // 로그인 필요
   let curToken = req.token;

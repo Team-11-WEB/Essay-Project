@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 /**
  * @swagger
- * /user:
+ * /users/admin:
  *  get:
  *    summary: "회원 목록 조회"
  *    tags:
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
  *      404:
  *        $ref: "#/components/res/BadRequest"
  */
-router.get('/', (req, res, next) => {
+router.get('/admin', (req, res, next) => {
   models.User.findAll().then(users => {
     if (!users) {
       res.status(404).json({

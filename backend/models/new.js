@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
-    'newcrew',
+    'new',
     {
       id: {
         type: DataTypes.BIGINT,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'phone_num'
       },
       age: {
-        type: DataTypes.INT,
+        type: DataTypes.BIGINT,
         allowNull: false
       },
       content: {
