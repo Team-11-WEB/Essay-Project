@@ -105,6 +105,7 @@ module.exports = {
           classId: { type: 'string' },
           classDate: { type: 'string', format: 'date' },
           location: { type: 'string' },
+          attachUrl: { type: 'string' },
           attachTitle: { type: 'string' },
           createdAt: { type: 'string', format: 'date' }
         },
@@ -131,6 +132,14 @@ module.exports = {
           createdAt: { type: 'string', format: 'date' }
         },
         type: 'object'
+      },
+      Book: {
+        properties: {
+          title: { type: 'string' },
+          image: { type: 'string' },
+          author: { type: 'string' },
+          description: { type: 'string' }
+        }
       },
       AttachRegisterForm: {
         properties: {
@@ -196,7 +205,7 @@ module.exports = {
           location: { type: 'string' },
           classId: { type: 'string' },
           classDate: { type: 'string', format: 'date' },
-          attachTitle: { type: 'string' }
+          attachId: { type: 'integer', format: 'int64' }
         }
       },
       NewRegisterForm: {

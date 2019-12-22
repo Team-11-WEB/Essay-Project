@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       location: {
         type: DataTypes.TEXT
       },
+      attachUrl: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+        field: 'attach_url'
+      },
       attachTitle: {
         type: DataTypes.STRING(200),
         allowNull: true,

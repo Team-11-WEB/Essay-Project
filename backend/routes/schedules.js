@@ -66,7 +66,7 @@ router.post('/', ensureAuthorized, (req, res, next) => {
   let curLocation = req.body.location;
   let curClassId = req.body.classId;
   let curClassDate = req.body.classDate;
-  let curAttachTitle = req.body.attachTitle;
+  let curAttachId = req.body.attachId;
 
   // 로그인 확인으로 부터 얻은 토큰으로 관리자인지 확인
   models.User.findOne({
@@ -83,15 +83,18 @@ router.post('/', ensureAuthorized, (req, res, next) => {
     }
 
     // 관리자일 경우
-    models.Schedule.create({
-      title: curTitle,
-      content: curContent,
-      location: curLocation,
-      classId: curClassId,
-      attachTitle: curAttachTitle,
-      classDate: curClassDate
-    }).then(schedule => {
-      res.status(200).json(schedule);
+    models.Attach.findByPk(curAttachId).then(attach => {
+      models.Schedule.create({
+        title: curTitle,
+        content: curContent,
+        location: curLocation,
+        classId: curClassId,
+        attachUrl: attach.url,
+        attachTitle: attach.title,
+        classDate: curClassDate
+      }).then(schedule => {
+        res.status(200).json(schedule);
+      });
     });
   });
 });

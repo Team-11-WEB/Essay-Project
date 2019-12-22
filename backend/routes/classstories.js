@@ -117,6 +117,13 @@ router.post(
         token: curToken
       }
     }).then(user => {
+      // 로그인 상태가 아닐 경우
+      if (!user) {
+        res.status(403).json({
+          error: '수업 진행한 내용을 업로드할 권한이 없습니다.(비 로그인 상태)'
+        });
+        return;
+      }
       // 관리자가 아닐 경우
       if (user.name != 'admin') {
         res.status(403).json({
