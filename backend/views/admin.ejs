@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../stylesheets/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-3.2.0.min.js"
+    ></script>
+    <script type="text/javascript" src="../javascripts/admin.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="title">
+        <a id="header_text" href="/">글 숲에서 노는 아이들</a>
+      </div>
+
+      <div class="login_area">
+        <a href="/">
+          <div class="login_icon">메인페이지</div>
+        </a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page_0">
+        <div class="main_sub">
+          <div class="sub_sub">
+            <a href="javascript:void(0);onclick=page_1_open();">
+              <div class="contents">
+                <div class="contents_text">수업결과<br />등록</div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0);onclick=page_2_open()">
+              <div class="contents">
+                <div class="contents_text">수업일정<br />등록</div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0);onclick=page_3_open()">
+              <div class="contents">
+                <div class="contents_text">수업자료<br />등록</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="sub_sub">
+            <a href="javascript:void(0);onclick=page_4_open()">
+              <div class="contents">
+                <div class="contents_text">회원목록<br />조회</div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0);onclick=page_5_open()">
+              <div class="contents">
+                <div class="contents_text">요청질문<br />조회</div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0);onclick=page_6_open()">
+              <div class="contents">
+                <div class="contents_text">신규회원<br />신청</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="page_1">
+        <a href="javascript:void(0);onclick=all_back_button()">
+          <div class="all_back_button">
+            뒤로가기
+          </div>
+        </a>
+
+        <div class="page_1_main">
+          <div class="page_1_index">
+            수업결과등록
+          </div>
+
+          <form
+            id="FILE_FORM"
+            method="post"
+            enctype="multipart/form-data"
+            action=""
+          >
+            <div class="page_1_title">
+              <input id="page_1_title" type="text" placeholder="제목" />
+
+              <input
+                id="page_1_classDate"
+                type="text"
+                placeholder="수업일자(YYYY-MM-DD 형식으로)"
+              />
+
+              <input id="page_1_attachImg" type="file" />
+            </div>
+
+            <div class="page_1_content">
+              <textarea
+                id="page_1_content"
+                rows="8"
+                cols="80"
+                placeholder="내용"
+              ></textarea>
+            </div>
+
+            <a
+              id="page_1_submit_link"
+              href="javascript:void(0);onclick=page_1_submit()"
+            >
+              <div class="page_1_submit">완료</div>
+            </a>
+          </form>
+        </div>
+      </div>
+
+      <div class="page_2">
+        <a href="javascript:void(0);onclick=all_back_button()">
+          <div class="all_back_button">
+            뒤로가기
+          </div>
+        </a>
+
+        <div class="page_2_main">
+          <div class="page_2_index">
+            수업일정등록
+          </div>
+
+          <div class="page_2_alert">
+            수업의 제목을 입력해주세요
+          </div>
+          <input
+            class="page_2_input"
+            id="page_2_title"
+            type="text"
+            placeholder="제목"
+          />
+          <div class="page_2_alert">
+            수업할 내용을 입력해주세요
+          </div>
+          <input
+            class="page_2_input"
+            id="page_2_content"
+            type="text"
+            placeholder="내용"
+          />
+          <div class="page_2_alert">
+            수업할 장소를 입력해주세요
+          </div>
+          <input
+            class="page_2_input"
+            id="page_2_location"
+            type="text"
+            placeholder="장소"
+          />
+
+          <div class="page_2_alert">
+            수업할 반을 선택해주세요
+          </div>
+          <select class="page_2_select" id="page_2_classId">
+            <option value="">수업할 반을 선택해주세요</option>
+            <option value="A반">A반</option>
+            <option value="B반">B반</option>
+            <option value="C반">C반</option>
+            <option value="D반">D반</option>
+          </select>
+
+          <div class="page_2_alert">
+            수업입자를 입력해주세요
+          </div>
+
+          <input
+            class="page_2_input"
+            id="page_2_classDate"
+            type="text"
+            name=""
+            value=""
+            placeholder="수업일자(YYYY-MM-DD 형식으로)"
+          />
+
+          <div class="page_2_alert">
+            수업에 필요한 자료를 선택해주세요
+          </div>
+          <select class="page_2_select" id="page_2_attach_list"> </select>
+
+          <a href="javascript:void(0);onclick=page_2_submit()">
+            <div class="page_2_submit">완료</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="page_3">
+        <a href="javascript:void(0);onclick=all_back_button()">
+          <div class="all_back_button">
+            뒤로가기
+          </div>
+        </a>
+
+        <div class="page_3_main">
+          <div class="page_3_index">
+            수업자료등록
+          </div>
+
+          <form
+            id="FILE_FORM"
+            method="post"
+            enctype="multipart/form-data"
+            action=""
+          >
+            <div class="page_3_title">
+              <input id="page_3_title" type="text" placeholder="제목" />
+
+              <input id="page_3_attachfile" type="file" />
+            </div>
+
+            <div class="page_3_content">
+              <textarea
+                id="page_3_content"
+                rows="8"
+                cols="80"
+                placeholder="내용"
+              ></textarea>
+            </div>
+
+            <a href="javascript:void(0);onclick=page_3_submit()">
+              <div class="page_3_submit">완료</div>
+            </a>
+          </form>
+        </div>
+      </div>
+
+      <div class="page_4">
+        <a href="javascript:void(0);onclick=all_back_button()">
+          <div class="all_back_button">
+            뒤로가기
+          </div>
+        </a>
+
+        <div class="page_4_main">
+          <div class="list_user_all">
+            <div class="list_user_title">
+              <div class="list_user_index" id="list_user_index_1">번호</div>
+              <div class="list_user_index" id="list_user_index_2">이름</div>
+              <div class="list_user_index" id="list_user_index_3">반</div>
+              <div class="list_user_index" id="list_user_index_4">이메일</div>
+              <div class="list_user_index" id="list_user_index_5">가입일</div>
+            </div>
+
+            <div class="list_user_content_area"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page_5">
+        <a href="javascript:void(0);onclick=all_back_button()">
+          <div class="all_back_button">
+            뒤로가기
+          </div>
+        </a>
+
+        <div class="page_5_main">
+          <div class="list_all">
+            <div class="list_title">
+              <div class="list_index" id="list_index_1">번호</div>
+              <div class="list_index" id="list_index_2">제목</div>
+              <div class="list_index" id="list_index_3">이메일</div>
+              <div class="list_index" id="list_index_4">작성일</div>
+            </div>
+
+            <div class="list_content_area"></div>
+          </div>
+
+          <div class="list_detail">
+            <div class="list_detail_title">
+              제목
+            </div>
+            <div class="list_detail_email">
+              작성자
+            </div>
+            <div class="list_detail_content">
+              메모
+            </div>
+          </div>
+
+          <div class="list_answer">
+            <input
+              id="answer_title"
+              class="list_answer_title"
+              type="text"
+              name=""
+              value=""
+              placeholder="답변 제목"
+            />
+            <input id="answer_email" type="hidden" />
+            <textarea
+              id="answer_content"
+              class="list_answer_content"
+              rows="8"
+              cols="80"
+              placeholder="답변 내용"
+            ></textarea>
+
+            <a href="javascript:void(0);onclick=qna_detail_close()">
+              <div class="answer_cancel">
+                뒤로가기
+              </div>
+            </a>
+            <a href="javascript:void(0);onclick=qna_submit()">
+              <div class="answer_submit">
+                답변하기
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="page_6">
+        <a href="javascript:void(0);onclick=all_back_button()">
+          <div class="all_back_button">
+            뒤로가기
+          </div>
+        </a>
+
+        <div class="page_6_main"></div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,255 @@
+body{
+  /* background-image: url('/imgs/bookReport.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; */
+  background-color: rgba(0,0,0,0.05);
+  margin: 0;
+  padding: 0;
+}
+.header {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: rgba(147,112,219,0.9);
+  display: flex;
+  text-align: center;
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+}
+.header .title{
+  text-align: left;
+  /* border: 1px solid black; */
+  padding-top: 18px;
+  padding-left: 10%;
+  flex-grow: 1.8;
+  font-size: 30px;
+  font-weight: 600;
+}
+.sub_title{
+  /* border: 1px solid black; */
+  padding: 23px 20px 22px 20px;
+  margin: 0 5px 0 5px;
+  flex-grow: 0.3;
+  font-size: 20px;
+  font-weight: 600;
+}
+.header .login_area{
+  /* border: 1px solid black; */
+  padding-top: 23px;
+  flex-grow: 0.5;
+}
+a#header_text:link {
+  /* color: rgba(0,0,0,0.8); */
+  color: rgba(255,255,255,1);
+  text-decoration: none;
+}
+a#header_text:visited {
+  /* color: rgba(0,0,0,0.8); */
+  color: rgba(255,255,255,1);
+  text-decoration: none;
+}
+.login_area .login_icon{
+  display: inline-block;
+  color: rgba(255,255,255,1);
+  border-radius: 3px;
+  font-size: 13px;
+  background-color: red;
+  padding: 3px 8px 3px 8px;
+}
+.login_background{
+  display: none;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.7);
+}
+.login_background .login_box{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  width: 30%;
+  background-color: rgba(255,255,255,1);
+}
+.login_box .login_header{
+  border-bottom: 1px solid rgba(0,0,0,1);
+  height: 40px;
+  padding: 20px 20px 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.login_header .login_header_text{
+  float: left;
+}
+.login_header .login_header_icon{
+  float: right;
+}
+a#login_icon:link{
+  text-decoration: none;
+}
+a#login_icon:visited{
+  text-decoration: none;
+}
+a#login_detail_icon:link{
+  text-decoration: none;
+  color: black;
+}
+a#login_detail_icon:visited{
+  text-decoration: none;
+  color: black;
+}
+a#login_close:link {
+  color: black;
+}
+a#login_close:visited {
+  color: black;
+}
+a#sign_up_link:link {
+  text-decoration: none;
+  color: black;
+}
+a#sign_up_link:visited {
+  text-decoration: none;
+  color: black;
+}
+a#sign_up_link:hover{
+  text-decoration: underline;
+}
+.login_box .input{
+  border: 1.5px solid rgba(0,0,0,0.7);
+  height: 40px;
+  width: 87%;
+  padding-left: 5px;
+  margin: 3% 5% 0 5%;
+}
+.id_check{
+  text-align: left;
+  width: 230px;
+  height: 22px;
+  margin-left: 20px;
+  margin-top: 15px;
+  font-size: 13px;
+  font-weight: 500;
+}
+#content_checkbox{
+  float: left;
+  margin-top: 3px;
+}
+.id_check #id_checkbox{
+  display: none;
+}
+input[type=checkbox]+ label:before {
+  float:left;
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 7px;
+    position: relative;
+    left: 0;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 2px;
+    box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .3);
+}
+input[type=checkbox]:checked + label:before {
+    content: "\2713";  /* 체크모양 */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    font-size: 18px;
+    font-weight:800;
+    color: rgba(255,255,255,1);
+    background-color: rgba(0,0,0,0.3);
+    text-align: center;
+}
+.login_box .submit{
+  border: 1px solid black;
+  border-radius: 4px;
+  height: 29px;
+  width: 88%;
+  padding-top: 11px;
+  padding-left: 5px;
+  margin: 25px 5% 0 5%;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+}
+.login_box .sign_up_box{
+  font-size: 13px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.sign_up_box #sign_up_text{
+  margin-left: 3px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.main{
+  /* border: 1px solid yellow; */
+  padding: 0 80px 100px 80px;
+}
+.main .index_title{
+  display: inline-block;
+  background-color: rgba(23,121,11,0.5);
+  border-radius: 5px;
+  padding: 10px 20px 10px 20px;
+  margin-top: 5%;
+  margin-bottom: 4%;
+  color: rgba(255,255,255,1);
+  font-size: 25px;
+  font-weight: 600;
+  float: left;
+}
+.main .submit_button{
+  display: inline-block;
+  background-color: rgba(100,149,237,0.9);
+  border-radius: 3px;
+  margin-top: 8%;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  padding: 8px 13px 5px 13px;
+}
+.main .main_all{
+  clear: both;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 5px;
+  height: 510px;
+  padding: 10px 30px 20px 30px;
+}
+.text_email{
+  border: 0.5px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  width: 20%;
+  height: 25px;
+  font-size: 13px;
+  padding-left: 15px;
+  margin-top: 20px;
+}
+.text_title{
+  border: 0.5px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding-left: 18px;
+  padding-top: 10px;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  width: 98%;
+  height: 30px;
+}
+.text_content{
+  border: 0.5px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding-left: 18px;
+  padding-top: 10px;
+  font-size: 16px;
+  width: 98%;
+  height: 400px;
+}
+.footer{
+  border: 1px solid black;
+  height: 100px;
+}

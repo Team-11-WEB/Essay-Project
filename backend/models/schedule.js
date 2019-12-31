@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'class_id'
       },
       classDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.BIGINT,
         allowNull: false,
         field: 'class_date'
       },

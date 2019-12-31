@@ -2,137 +2,122 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="stylesheets/main.css">
+  <link rel="stylesheet" href="../stylesheets/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
   <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
-  <script type="text/javascript">
-
-    window.onload = () =>{
-      document.getElementsByClassName('page_icon')[0].style.backgroundColor="red";
-    }
-
-    $(()=>{
-      $(".main_1").on('mousewheel DOMMouseScroll',(e)=>{
-        var E = e.originalEvent;
-        delta = 0;
-        if (E.detail) {
-            delta = E.detail * -40;
-        }else{
-          delta = E.wheelDelta;
-        };
-        if(delta < 0){
-          $('.main_1').slideUp(1200);
-          $('.main_1_all').slideUp(1200);
-          $('.main_2').css('bottom','0');
-          $('.main_2').slideDown(1200);
-          $('.main_2_all').slideDown(1200);
-          $('.main_3').css('display','none');
-          $('.scroll_box').slideUp(1000);
-          setTimeout(()=>{
-            document.getElementsByClassName('page_icon')[0].style.backgroundColor="";
-            document.getElementsByClassName('page_icon')[1].style.backgroundColor="red";
-          },500);
-        }
-      });
-    });
-
-    $(()=>{
-      $(".main_2").on('mousewheel DOMMouseScroll',(e)=>{
-        var E = e.originalEvent;
-        delta = 0;
-        if (E.detail) {
-            delta = E.detail * -40;
-        }else{
-          delta = E.wheelDelta;
-        };
-        if(delta < 0){
-          $('.main_1').css('display','none');
-          $('.main_2').css('bottom','');
-          $('.main_2').slideUp(1200);
-          $('.main_2_all').slideUp(1200);
-          $('.main_3').css('bottom','0');
-          $('.main_3').slideDown(1200);
-          $('.main_3_all').slideDown(1200);
-          setTimeout(()=>{
-            document.getElementsByClassName('page_icon')[1].style.backgroundColor="";
-            document.getElementsByClassName('page_icon')[2].style.backgroundColor="red";
-          },500);
-        }
-        else{
-          $('.main_3').css('display','none');
-          $('.main_2').css('bottom','0');
-          $('.main_2').slideUp(1200);
-          $('.main_2_all').slideUp(1200);
-          $('.main_1').css('top','');
-          $('.main_1').slideDown(1200);
-          $('.main_1_all').slideDown(1200);
-          $('.scroll_box').slideDown(1200);
-          setTimeout(()=>{
-            document.getElementsByClassName('page_icon')[1].style.backgroundColor="";
-            document.getElementsByClassName('page_icon')[0].style.backgroundColor="red";
-          },500);
-        }
-      });
-    });
-
-    $(()=>{
-      $(".main_3").on('mousewheel DOMMouseScroll',(e)=>{
-        var E = e.originalEvent;
-        delta = 0;
-        if (E.detail) {
-            delta = E.detail * -40;
-        }else{
-          delta = E.wheelDelta;
-        };
-        if(delta > 0){
-          $('.main_1').css('display','none');
-          $('.main_3').css('bottom','0');
-          $('.main_3').slideUp(1200);
-          $('.main_3_all').slideUp(1200);
-          $('.main_2').css('top','');
-          $('.main_2').slideDown(1200);
-          $('.main_2_all').slideDown(1200);
-          setTimeout(()=>{
-            document.getElementsByClassName('page_icon')[2].style.backgroundColor="";
-            document.getElementsByClassName('page_icon')[1].style.backgroundColor="red";
-          },500);
-        }
-      });
-    });
-
-
-  </script>
+  <script type="text/javascript" src="../javascripts/main.js"></script>
   <title>Document</title>
 </head>
 
 <body>
   <header class="header">
-    <div class="title">글 숲에서 노는 아이들</div>
-    <div class="sub_title_1">수업일정</div>
-    <div class="sub_title_2">수업자료</div>
-    <div class="sub_title_3">독후감</div>
-    <div class="sub_title_4">질문게시판</div>
-    <div class="login_box">
-      <div class="login">로그인</div>
+    <div class="title">
+      <a id="header_text" href="/">글 숲에서 노는 아이들</a>
+    </div>
+
+    <a id="header_text" href="/schedule">
+      <div class="sub_title">
+        수업일정
+      </div>
+    </a>
+
+    <a id="header_text" href="/document">
+      <div class="sub_title">
+        수업자료
+      </div>
+    </a>
+
+
+    <a id="header_text" href="/bookReport">
+      <div class="sub_title">
+        독후감
+      </div>
+    </a>
+
+    <a id="header_text" href="/qna">
+      <div class="sub_title">
+        질문게시판
+      </div>
+    </a>
+
+    <div class="login_area">
+
     </div>
   </header>
 
+  <div class="login_background">
+    <div class="login_box">
+      <div class="login_header">
+        <div class="login_header_text">로그인</div>
+        <a id="login_close" href="javascript:void(0);onclick=login_close()">
+          <div class="login_header_icon"><i class="fas fa-times"></i></div>
+        </a>
+      </div>
+
+
+
+        <input class="input" id="email" type="text" name="" value="" placeholder="이메일을 입해주세요">
+
+        <input class="input" id="pw" type="password" name="" value="" placeholder="비밀번호를 입해주세요">
+
+        <div class="id_check">
+            <input id="id_checkbox" type="checkbox" name="" value="">
+              <label for="id_checkbox"><div id="content_checkbox">아이디 저장하기</div></label>
+            </input>
+          </div>
+
+        <a id="login_detail_icon" href="javascript:void(0);onclick=login()">
+          <div class="submit">로그인</div>
+        </a>
+
+
+
+      <div class="sign_up_box">아직 회원이 아니신가요?
+        <a id="sign_up_link" href="/signUp">
+          <span id="sign_up_text">회원가입</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="new_background">
+    <div class="new_box">
+      <div class="new_box_title">상담 신청자 정보</div>
+
+      <div class="new_box_alert">자녀의 나이를 입력해주세요</div>
+      <input id="new_age" class="new_box_input" type="text" placeholder="숫자만 기입해주세요">
+
+      <div class="new_box_alert">연락받으실 휴대번호를 입력해주세요</div>
+      <input id="new_phone" class="new_box_input" type="text" placeholder="-를 제외한 번호를 기입해주세요">
+
+      <div class="new_box_alert">기타 궁금하신 사항이나 참고사항을 적어주세요</div>
+      <textarea id="new_content" class="new_box_textarea" rows="8" cols="80" placeholder="내용입력"></textarea>
+
+      <a href="javascript:void(0);onclick=new_submit()">
+        <div class="new_box_submit">제출하기</div>
+      </a>
+
+      <a href="javascript:void(0);onclick=new_cancel()">
+        <div class="new_box_cancel">취소하기</div>
+      </a>
+
+
+
+    </div>
+  </div>
+
   <div class="main_background">
+  <div class="main_sub_back">
 
   <div class="main_1">
     <div class="main_1_all">
       <div class="header_sub"></div>
-      <div class="index_box">업체 소개</div>
-
-      <div class="sub_all">
-        <div class="sub_left">
-          <div class="title_box">Title Area</div>
-          <div class="content_box">Content Area</div>
-        </div>
-        <div class="sub_right">
-          <div class="img_box"></div>
-        </div>
-      </div>
+      <div class="main_1_content_title">업체 소개</div>
+      <div class="main_1_content_content">글 숲에서 노는 아이들은 말하기, 듣기, 쓰기를 통해<br>자신의 의견을 표현하는 능력을 기르기 위한<br>다양한 프레임의 수업이 이루어지는 곳입니다</div>
+      <a href="javascript:void(0);onclick=new_open()">
+        <div class="main_1_new">상담/가입신청</div>
+      </a>
     </div>
   </div>
 
@@ -143,19 +128,18 @@
 
       <div class="sub_all_2">
         <div class="sub_left_2">
-          <div class="sub_sub"></div>
+          <div class="sub_sub">
+            <i class="fas fa-chevron-circle-left"></i>
+          </div>
         </div>
+
         <div class="sub_middle_2">
-          <div class="main_2_box">0</div>
-          <div class="main_2_box">1</div>
-          <div class="main_2_box">2</div>
-          <div class="main_2_box">3</div>
-          <div class="main_2_box">4</div>
-          <div class="main_2_box">5</div>
-          <div class="main_2_box">6</div>
+
         </div>
+
         <div class="sub_right_2">
           <div class="sub_sub">
+            <i class="fas fa-chevron-circle-right"></i>
           </div>
         </div>
       </div>
@@ -165,21 +149,18 @@
   <div class="main_3">
     <div class="main_3_all">
       <div class="header_sub"></div>
-      <div class="index_box">11월 1주차 수업도서</div>
+      <div class="index_box">11월 추천도서</div>
 
       <div class="sub_all_3">
-        <div class="sub_left_3">
-          <div class="main_3_img_box"></div>
-          <div class="main_3_content_box"></div>
-        </div>
-        <div class="sub_right_3">
-          <div class="main_3_img_box"></div>
-          <div class="main_3_content_box"></div>
-        </div>
-      </div>
+
+
+      </dov>
+
+
     </div>
   </div>
 
+  </div>
   </div>
 
   <div class="page_box">

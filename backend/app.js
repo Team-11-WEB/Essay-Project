@@ -14,6 +14,7 @@ var scheduleRouter = require('./routes/schedules');
 var qnaRouter = require('./routes/qnas');
 var classstoryRouter = require('./routes/classstories');
 var newRouter = require('./routes/news');
+var adminRouter = require('./routes/admin');
 var bookRouter = require('./routes/books');
 var swaggerJSDoc = require('swagger-jsdoc');
 var swaggerOption = require('./swagger');
@@ -60,6 +61,7 @@ app.use('/classstories', classstoryRouter);
 app.use('/news', newRouter);
 app.use('/books', bookRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

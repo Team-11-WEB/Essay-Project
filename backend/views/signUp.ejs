@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../stylesheets/signUp.css" />
+    <link rel="stylesheet" href="../stylesheets/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-3.2.0.min.js"
+    ></script>
+    <script type="text/javascript" src="../javascripts/signUp.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="title">
+        <a id="header_text" href="/">글 숲에서 노는 아이들</a>
+      </div>
+
+      <a id="header_text" href="/schedule">
+        <div class="sub_title">
+          수업일정
+        </div>
+      </a>
+
+      <a id="header_text" href="/document">
+        <div class="sub_title">
+          수업자료
+        </div>
+      </a>
+
+      <a id="header_text" href="/bookReport">
+        <div class="sub_title">
+          독후감
+        </div>
+      </a>
+
+      <a id="header_text" href="/qna">
+        <div class="sub_title">
+          질문게시판
+        </div>
+      </a>
+
+      <div class="login_area">
+        <a href="javascript:void(0);onclick=login_open()">
+          <div class="login_icon">로그인</div>
+        </a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="main_all">
+        <div class="main_title">
+          회원가입
+        </div>
+
+        <div class="form_alert">
+          이메일을 입력해주세요
+        </div>
+        <div class="">
+          <input
+            class="form_contents"
+            id="email"
+            type="text"
+            name=""
+            value=""
+            placeholder="이메일 입력"
+          />
+        </div>
+
+        <div class="form_alert">
+          비밀번호를 입력해주세요
+        </div>
+        <div class="">
+          <input
+            class="form_contents"
+            id="pw"
+            type="password"
+            name=""
+            value=""
+            placeholder="비밀번호 입력"
+          />
+        </div>
+
+        <div class="form_alert">
+          비밀번호를 확인해주세요
+        </div>
+        <div class="">
+          <input
+            class="form_contents"
+            type="password"
+            name=""
+            value=""
+            placeholder="비밀번호 확인"
+          />
+        </div>
+
+        <div class="form_alert">
+          소속된 반을 선택해주세요
+        </div>
+        <div class="">
+          <select class="form_contents" id="classId">
+            <option value="">소속된 반을 선택해주세요</option>
+            <option value="A반">A반</option>
+            <option value="B반">B반</option>
+            <option value="C반">C반</option>
+            <option value="D반">D반</option>
+          </select>
+        </div>
+
+        <div class="form_alert">
+          이름을 입력해주세요
+        </div>
+        <div class="">
+          <input
+            class="form_contents"
+            id="name"
+            type="text"
+            name=""
+            value=""
+            placeholder="학생이름 입력"
+          />
+        </div>
+
+        <a href="/">
+          <div class="botton_cancel">
+            취소하기
+          </div>
+        </a>
+
+        <a href="javascript:void(0);onclick=button()">
+          <div class="botton_submit">
+            완료하기
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div id="copyright">
+        Copyright 2019. 웹sw studio 11조. All rights reserved
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+body{
+  /* background: linear-gradient(to bottom, #c9d6ff 50%, #e2e2e2); */
+  /* background-color: rgba(201,214,255,0.7); */
+  background-color: rgba(0,0,0,0.05);
+  margin: 0;
+  padding: 0;
+}
+.header {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: rgba(100,149,237,0.9);
+  display: flex;
+  text-align: center;
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+}
+.header .title{
+  text-align: left;
+  /* border: 1px solid black; */
+  padding-top: 18px;
+  padding-left: 10%;
+  flex-grow: 1.8;
+  font-size: 30px;
+  font-weight: 600;
+}
+.sub_title{
+  /* border: 1px solid black; */
+  padding: 23px 20px 22px 20px;
+  margin: 0 5px 0 5px;
+  flex-grow: 0.3;
+  font-size: 20px;
+  font-weight: 600;
+}
+.header .login_area{
+  /* border: 1px solid black; */
+  padding-top: 23px;
+  flex-grow: 0.5;
+}
+a#header_text:link {
+  /* color: rgba(0,0,0,0.8); */
+  color: rgba(255,255,255,1);
+  text-decoration: none;
+}
+a#header_text:visited {
+  /* color: rgba(0,0,0,0.8); */
+  color: rgba(255,255,255,1);
+  text-decoration: none;
+}
+a#content_link:link{
+  text-decoration: none;
+  color: black;
+}
+a#content_link:visited{
+  text-decoration: none;
+  color: black;
+}
+a#file_link:link{
+  color: blue;
+}
+a#file_link:visited{
+  color: blue;
+}
+.login_area .login_icon{
+  display: inline-block;
+  color: rgba(255,255,255,1);
+  border-radius: 3px;
+  font-size: 13px;
+  background-color: red;
+  padding: 3px 8px 3px 8px;
+}
+.main{
+  display: block;
+  /* border: 1px solid yellow; */
+  padding: 0 80px 80px 80px;
+}
+.main .index_title{
+  display: inline-block;
+  background-color: rgba(23,121,11,0.5);
+  border-radius: 5px;
+  padding: 10px 20px 10px 20px;
+  margin-top: 5%;
+  margin-bottom: 4%;
+  color: rgba(255,255,255,1);
+  font-size: 25px;
+  font-weight: 600;
+  float: left;
+}
+.main .list_all{
+  clear: both;
+  height: 500px;
+}
+.list_all .list_title{
+  height: 42px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction:row;
+}
+.list_title .list_index{
+  text-align: center;
+  padding-top: 12px;
+}
+#list_index_1{
+  width: 8%
+}
+#list_index_2{
+  width: 50%;
+}
+#list_index_3{
+  width: 15%;
+}
+#list_index_4{
+  width: 25%;
+}
+#list_index_5{
+  width: 5%;
+}
+.list_all .list_content{
+  font-size: 13px;
+  text-align: center;
+  padding: 10px 0 0 0px;
+  height: 27px;
+  display: flex;
+  flex-direction:row;
+  border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+.main .page_box{
+  font-weight: 600;
+  margin-top: 10px;
+  padding-top: 20px;
+  height: 30px;
+  text-align:center;
+}
+.footer{
+  border: 1px solid black;
+  height: 100px;
+}

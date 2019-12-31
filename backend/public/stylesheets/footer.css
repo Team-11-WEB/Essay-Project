@@ -1,0 +1,9 @@
+.footer{
+  background-color: rgba(0,0,0,0.1);
+}
+#copyright{
+  padding-top: 43px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+}

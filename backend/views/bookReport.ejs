@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../stylesheets/bookReport.css">
+  <link rel="stylesheet" href="../stylesheets/login.css">
+  <link rel="stylesheet" href="../stylesheets/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
+  <script type="text/javascript" src="../javascripts/login.js"></script>
+  <script type="text/javascript" src="../javascripts/bookReport.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="main_bg">
+  <header class="header">
+    <div class="title">
+      <a id="header_text" href="/">글 숲에서 노는 아이들</a>
+    </div>
+
+    <a id="header_text" href="/schedule">
+      <div class="sub_title">
+        수업일정
+      </div>
+    </a>
+
+    <a id="header_text" href="/document">
+      <div class="sub_title">
+        수업자료
+      </div>
+    </a>
+
+    <a id="header_text" href="/bookReport">
+      <div class="sub_title">
+        독후감
+      </div>
+    </a>
+
+    <a id="header_text" href="/qna">
+      <div class="sub_title">
+        질문게시판
+      </div>
+    </a>
+
+    <div class="login_area">
+      <a href="javascript:void(0);onclick=login_open()">
+        <div class="login_icon">로그인</div>
+      </a>
+    </div>
+  </header>
+
+  <div class="login_background">
+    <div class="login_box">
+      <div class="login_header">
+        <div class="login_header_text">로그인</div>
+        <a id="login_close" href="javascript:void(0);onclick=login_close()">
+          <div class="login_header_icon"><i class="fas fa-times"></i></div>
+        </a>
+      </div>
+
+
+
+        <input class="input" id="email" type="text" name="" value="" placeholder="이메일을 입해주세요">
+
+        <input class="input" id="pw" type="password" name="" value="" placeholder="비밀번호를 입해주세요">
+
+        <div class="id_check">
+            <input id="id_checkbox" type="checkbox" name="" value="">
+              <label for="id_checkbox"><div id="content_checkbox">아이디 저장하기</div></label>
+            </input>
+          </div>
+
+        <a id="login_detail_icon" href="javascript:void(0);onclick=login()">
+          <div class="submit">로그인</div>
+        </a>
+
+
+
+      <div class="sign_up_box">아직 회원이 아니신가요?
+        <a id="sign_up_link" href="/signUp">
+          <span id="sign_up_text">회원가입</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <main class="main">
+
+    <div class="index_title">
+      독후감
+    </div>
+
+    <div class="add_button">독후감 쓰기</div>
+
+    <div class="main_all">
+
+      <% for(let i=0;i<2;i++){%>
+
+        <div class="main_sub">
+
+          <div class="sub_content">
+
+            <div class="sub_book">
+            </div>
+
+            <div class="sub_book">
+            </div>
+
+            <div class="sub_book">
+            </div>
+
+            <div class="sub_book">
+            </div>
+
+            <div class="sub_book">
+            </div>
+
+            <div class="sub_book">
+            </div>
+
+          </div>
+
+          <div class="sub_footer">
+          </div>
+
+        </div>
+
+        <%}
+      %>
+
+
+    </div>
+
+
+  </main>
+  </div>
+
+  <footer class="footer">
+    <div id="copyright">Copyright 2019. 웹sw studio 11조. All rights reserved</div>
+  </footer>
+
+
+</body>

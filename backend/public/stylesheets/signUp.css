@@ -1,0 +1,114 @@
+body{
+  background-image: url('/imgs/bookReport.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: rgba(255,255,255,0.9);
+  display: flex;
+  text-align: center;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.1);
+}
+.header .title{
+  text-align: left;
+  /* border: 1px solid black; */
+  padding-top: 18px;
+  padding-left: 10%;
+  flex-grow: 1.8;
+  font-size: 30px;
+  font-weight: 600;
+}
+.sub_title{
+  /* border: 1px solid black; */
+  padding: 23px 20px 22px 20px;
+  margin: 0 5px 0 5px;
+  flex-grow: 0.3;
+  font-size: 20px;
+  font-weight: 600;
+}
+.header .login_area{
+  /* border: 1px solid black; */
+  padding-top: 23px;
+  flex-grow: 0.5;
+}
+a#header_text:link {
+  color: rgba(0,0,0,0.8);
+  /* color: rgba(255,255,255,1); */
+  text-decoration: none;
+}
+a#header_text:visited {
+  color: rgba(0,0,0,0.8);
+  /* color: rgba(255,255,255,1); */
+  text-decoration: none;
+}
+.login_area .login_icon{
+  display: inline-block;
+  color: rgba(255,255,255,1);
+  border-radius: 3px;
+  font-size: 13px;
+  background-color: red;
+  padding: 3px 8px 3px 8px;
+}
+.main{
+  /* border: 1px solid yellow; */
+  padding: 80px;
+}
+.main .main_all{
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 7px;
+  height: 600px;
+  padding: 50px;
+  padding-bottom: 100px;
+}
+.main_all .main_title{
+  /* border: 1px solid black; */
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+.form_alert{
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.form_contents{
+  border: 1px solid gray;
+  height: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 7px;
+  width: 97%;
+  margin-bottom: 40px;
+}
+.botton_submit{
+  float: right;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 12px 7px 12px;
+  margin-top: 20px;
+}
+.botton_cancel{
+  float: right;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+  margin-right: 2%;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 12px 7px 12px;
+  margin-top: 20px;
+}
+.footer{
+  border: 1px solid black;
+  height: 100px;
+}

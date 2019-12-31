@@ -139,6 +139,84 @@ router.post('/', ensureAuthorized, (req, res, next) => {
 /**
  * @swagger
  * /essays:
+ *  post:
+ *    summary: 독후감 수정
+ *    tags:
+ *    - "Essay"
+ *    parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/EssayModifyForm"
+ *        description: "수정한 독후감의 정보"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Essay"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
+ */
+// put == update 기능
+router.put('/', ensureAuthorized, (req, res, next) => {
+  // 로그인 필요
+  let curToken = req.token;
+
+  // 사용자로부터 받아오는 데이터
+  let curBookName = req.body.bookName;
+  let curBookAuthor = req.body.bookAuthor;
+  let curTitle = req.body.title;
+  let curContent = req.body.content;
+  let curId = req.body.id;
+
+  // 로그인 확인으로 부터 얻은 토큰으로 해당 user 찾기
+  models.User.findOne({
+    where: {
+      token: curToken
+    }
+  }).then(user => {
+    // 해당 토큰의 user가 없을 경우
+    if (!user) {
+      res.status(404).json({
+        error: '해당 사용자가 없습니다.'
+      });
+      return;
+    }
+
+    // 토큰을 가진 user가 있을 경우
+    console.log('[#user.name] : ' + user.name);
+    // 독후감 등록
+    models.Essay.findByPk(curId).then(essay => {
+      if (essay.userId == user.id) {
+        models.Essay.update(
+          {
+            bookName: curBookName,
+            bookAuthor: curBookAuthor,
+            essayAuthor: user.name,
+            title: curTitle,
+            content: curContent
+          },
+          { where: { id: curId } }
+        ).then(essay => {
+          res.status(200).json(essay);
+        });
+      } else if (!curId) {
+        res.status(404).json({
+          error: '해당 사용자가 없습니다.'
+        });
+      } else {
+        res.status(403).json({
+          error: '독후감을 수정할 권한이 없습니다.'
+        });
+      }
+    });
+  });
+});
+
+/**
+ * @swagger
+ * /essays:
  *  delete:
  *    summary: 독후감 삭제
  *    tags:
