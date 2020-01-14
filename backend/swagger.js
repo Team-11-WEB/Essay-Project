@@ -214,6 +214,11 @@ module.exports = {
           age: { type: 'integer', format: 'int64' },
           content: { type: 'string' }
         }
+      },
+      BookFindForm: {
+        properties: {
+          bookName: { type: 'string' }
+        }
       }
     }
   },

@@ -43,37 +43,83 @@ router.get('/', (req, res, next) => {
   });
 });
 
+/**
+ * @swagger
+ * /books/find:
+ *  get:
+ *    summary: "독후감 작성 시 책 검색할 때 사용"
+ *    tags:
+ *    - "Book"
+ *    parameters:
+ *      - in: "query"
+ *        name: "query"
+ *        required: true
+ *        schema:
+ *          $ref: "#/definitions/BookFindForm"
+ *        description: "책 이름으로 책 정보 검색위한 폼"
+ *    responses:
+ *      200:
+ *        description: "성공"
+ *        schema:
+ *          $ref: "#/definitions/Book"
+ *      404:
+ *        $ref: "#/components/res/BadRequest"
+ */
+router.get('/find', (req, res, next) => {
+  // 네이버 api 불러서 책 2개 반환
+  console.log('test');
+  var bookname = req.query.bookName;
+  console.log(bookname);
+
+  const options = {
+    url:
+      'https://openapi.naver.com/v1/search/book_adv.xml?d_titl=' +
+      encodeURI(bookname) +
+      '&display=1',
+    headers: {
+      'X-Naver-Client-Id': apikey.Client_ID,
+      'X-Naver-Client-Secret': apikey.Client_Secret
+    }
+  };
+  temp(options).then(data => {
+    console.log(data);
+    res.send(data);
+  });
+});
+
 const temp = options => {
   return new Promise((resolve, reject) => {
-    let book1Obj = new Object();
-    let book2Obj = new Object();
+    var bookArray = new Array();
+    var book = new Object();
+
     request.get(options, function(err, res, body) {
       if (!err && res.statusCode == 200) {
         var xmlToJson = convert.xml2json(body, { compact: true, spaces: 4 });
         console.log(xmlToJson);
         var json = JSON.parse(xmlToJson);
 
-        var book1Title = json.rss.channel.item[0].title._text;
-        var book1Image = json.rss.channel.item[0].image._text;
-        var book1Author = json.rss.channel.item[0].author._text;
-        var book1Description = json.rss.channel.item[0].description._text;
+        var items = json.rss.channel.item;
+        var itemNum = items.length;
+        console.log('item 개수 : ' + itemNum);
 
-        book1Obj.title = book1Title;
-        book1Obj.image = book1Image;
-        book1Obj.author = book1Author;
-        book1Obj.description = book1Description;
+        if (itemNum == undefined) {
+          book.title = json.rss.channel.item.title._text;
+          book.image = json.rss.channel.item.image._text;
+          book.author = json.rss.channel.item.author._text;
+          book.description = json.rss.channel.item.description._text;
 
-        var book2Title = json.rss.channel.item[1].title._text;
-        var book2Image = json.rss.channel.item[1].image._text;
-        var book2Author = json.rss.channel.item[1].author._text;
-        var book2Description = json.rss.channel.item[1].description._text;
+          bookArray.push(book);
+        }
 
-        book2Obj.title = book2Title;
-        book2Obj.image = book2Image;
-        book2Obj.author = book2Author;
-        book2Obj.description = book2Description;
+        for (var i = 0; i < itemNum; i++) {
+          book.title = json.rss.channel.item[i].title._text;
+          book.image = json.rss.channel.item[i].image._text;
+          book.author = json.rss.channel.item[i].author._text;
+          book.description = json.rss.channel.item[i].description._text;
 
-        resolve([book1Obj, book2Obj]);
+          bookArray.push(book);
+        }
+        resolve(bookArray);
       } else {
         console.log('error');
       }

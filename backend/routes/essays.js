@@ -139,7 +139,7 @@ router.post('/', ensureAuthorized, (req, res, next) => {
 /**
  * @swagger
  * /essays:
- *  post:
+ *  put:
  *    summary: 독후감 수정
  *    tags:
  *    - "Essay"

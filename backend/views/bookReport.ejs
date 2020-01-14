@@ -9,7 +9,7 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
   <script type="text/javascript" src="../javascripts/login.js"></script>
   <script type="text/javascript" src="../javascripts/bookReport.js"></script>
-  <title>Document</title>
+  <title>독후감</title>
 </head>
 
 <body>
@@ -59,87 +59,124 @@
         </a>
       </div>
 
+      <input class="input" id="email" type="text" name="" value="" placeholder="이메일을 입해주세요">
+      <input class="input" id="pw" type="password" name="" value="" placeholder="비밀번호를 입해주세요">
 
+      <div class="id_check">
+        <input id="id_checkbox" type="checkbox" name="" value="">
+          <label for="id_checkbox"><div id="content_checkbox">아이디 저장하기</div></label>
+        </input>
+      </div>
 
-        <input class="input" id="email" type="text" name="" value="" placeholder="이메일을 입해주세요">
-
-        <input class="input" id="pw" type="password" name="" value="" placeholder="비밀번호를 입해주세요">
-
-        <div class="id_check">
-            <input id="id_checkbox" type="checkbox" name="" value="">
-              <label for="id_checkbox"><div id="content_checkbox">아이디 저장하기</div></label>
-            </input>
-          </div>
-
-        <a id="login_detail_icon" href="javascript:void(0);onclick=login()">
-          <div class="submit">로그인</div>
-        </a>
-
-
-
+      <a id="login_detail_icon" href="javascript:void(0);onclick=login()">
+        <div class="submit">로그인</div>
+      </a>
+      
       <div class="sign_up_box">아직 회원이 아니신가요?
         <a id="sign_up_link" href="/signUp">
           <span id="sign_up_text">회원가입</span>
         </a>
       </div>
-
     </div>
   </div>
 
   <main class="main">
 
-    <div class="index_title">
-      독후감
+    <div class="page_view">
+      <div class="index_title">
+        독후감
+      </div>
+
+      <div class="add_button">
+        <a href="javascript:void(0);onclick=page_write_open();">
+          <div class="contents">
+            <div class="contents_text">
+              독후감 쓰기
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="main_all">
+
+        <% for(let i=0;i<2;i++){%>
+
+          <div class="main_sub">
+            <div class="sub_content">
+              <div class="sub_book">
+              </div>
+              <div class="sub_book">
+              </div>
+              <div class="sub_book">
+              </div>
+              <div class="sub_book">
+              </div>
+              <div class="sub_book">
+              </div>
+              <div class="sub_book">
+              </div>
+            </div>
+            <div class="sub_footer">
+            </div>
+          </div>
+
+          <%}
+        %>
+      </div>
+
+      <footer class="footer">
+        <div id="copyright">Copyright 2019. 웹sw studio 11조. All rights reserved</div>
+      </footer>
+
     </div>
 
-    <div class="add_button">독후감 쓰기</div>
+    <div class="page_write">
+      <a href="javascript:void(0);onclick=all_back_button()">
+        <div class="all_back_button">
+          뒤로가기
+        </div>
+      </a>
 
-    <div class="main_all">
-
-      <% for(let i=0;i<2;i++){%>
-
-        <div class="main_sub">
-
-          <div class="sub_content">
-
-            <div class="sub_book">
-            </div>
-
-            <div class="sub_book">
-            </div>
-
-            <div class="sub_book">
-            </div>
-
-            <div class="sub_book">
-            </div>
-
-            <div class="sub_book">
-            </div>
-
-            <div class="sub_book">
-            </div>
-
-          </div>
-
-          <div class="sub_footer">
-          </div>
-
+      <div class="page_write_main">
+        <div class="page_write_index">
+          독후감등록
         </div>
 
-        <%}
-      %>
+        <form
+            id="FILE_FORM"
+            method="post"
+            enctype="multipart/form-data"
+            action="">
 
+        <div class="page_write_book">
+          <input id="page_write_bookName" type="text" placeholder="책이름"/>
+          <a href="javascript:void(0);onclick=page_write_book_find()">
+            <div class="find_book_button">
+              책 검색
+            </div>
+          </a>
+        </div>
 
+        <div class="page_write_title">
+          <input id="page_write_bookAuthor" type="text" placeholder="저자"/>
+          <input id="page_write_title" type="text" placeholder="독후감제목"/>
+        </div>
+
+        <div class="page_write_content">
+          <textarea id="page_write_content"
+                rows="8"
+                cols="80"
+                placeholder="내용">
+          </textarea>
+        </div>
+
+        <a id="page_write_submit_link"
+          href="javascript:void(0);onclick=page_write_submit()">
+          <div class="page_write_submit">완료</div>
+        </a>
+        </form>
+      </div>
     </div>
-
-
   </main>
   </div>
-
-  <footer class="footer">
-    <div id="copyright">Copyright 2019. 웹sw studio 11조. All rights reserved</div>
-  </footer>
-
-
 </body>
